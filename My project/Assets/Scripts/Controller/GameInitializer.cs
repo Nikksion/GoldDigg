@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class GameInitializer : MonoBehaviour {
     [SerializeField] private GameModel _gameModel;
+    [SerializeField] private GameController _gameController;
     private SaveMeneger _saverLoader;
     private void Awake() {
         _gameModel = GetComponent<GameModel>();
@@ -24,7 +25,9 @@ public class GameInitializer : MonoBehaviour {
             Debug.Log("Game data loaded");
             _gameModel.SetShovelCount(loadedData.shovelsCount);
             _gameModel.SetGoldCount(loadedData.goldCount);
+            _gameModel.SetPlayerScore(loadedData.playerScore);
             _gameModel.SetPlayerIsWin(loadedData.playerIsWin);
+            _gameController.SetSaveFlag(loadedData.saveButtonFlag);
             foreach (var blockData in loadedData.blocks)
                 _gameModel.SetBlockData(loadedData.blocks);
             _gameModel.SpawnGoldOnBlocksAfterLoad();
@@ -37,7 +40,9 @@ public class GameInitializer : MonoBehaviour {
         SaveData saveData = new SaveData {
             shovelsCount = _gameModel.GetShovelCount(),
             goldCount = _gameModel.GetGoldCount(),
-            playerIsWin = _gameModel.GetPlayerIsWin()
+            playerIsWin = _gameModel.GetPlayerIsWin(),
+            playerScore = _gameModel.GetPlayerScore(),
+            saveButtonFlag = _gameController.GetSaveFlag()
         };
         saveData.blocks = new List<BlockData>();
         foreach (var block in _gameModel.GetBlocks()) {

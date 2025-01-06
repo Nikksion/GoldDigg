@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "ww45pv9p4dlfsgso",
         "name": "com.DefaultCompany.com.unity.template.mobile2D",
-        "processId": 5546,
+        "processId": 29868,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,31 +11,55 @@
         {
             "deviceId": "ww45pv9p4dlfsgso",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 11334,
-            "exited": false
-        },
-        {
-            "deviceId": "ww45pv9p4dlfsgso",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 27700,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "ww45pv9p4dlfsgso",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 27838,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "ww45pv9p4dlfsgso",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 4478,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "ww45pv9p4dlfsgso",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 5546,
+            "exited": true
+        },
+        {
+            "deviceId": "ww45pv9p4dlfsgso",
+            "name": "com.miui.home",
+            "processId": 2126,
+            "exited": false
+        },
+        {
+            "deviceId": "ww45pv9p4dlfsgso",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 6254,
+            "exited": false
+        },
+        {
+            "deviceId": "ww45pv9p4dlfsgso",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 14369,
+            "exited": false
+        },
+        {
+            "deviceId": "ww45pv9p4dlfsgso",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 14929,
+            "exited": false
+        },
+        {
+            "deviceId": "ww45pv9p4dlfsgso",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 29868,
             "exited": false
         }
     ],

@@ -4,7 +4,10 @@ public class SaveData {
     public List<BlockData> blocks;
     public int shovelsCount;
     public int goldCount;
+    public int playerScore;
     public bool playerIsWin;
+    public bool saveButtonFlag;
+
 }
 [System.Serializable]
 public struct BlockData {

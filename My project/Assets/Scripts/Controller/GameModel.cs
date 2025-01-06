@@ -12,12 +12,16 @@ public class GameModel : MonoBehaviour, IGameModel {
     private int _goldNeededForWin;
     private float _goldDropChance;
     private bool _playerIsWin = false;
+    private int _playerScore;
+    private float _gameStartTime;
     private void Awake() {
         _shovelCount = _gameConfig.ShovelCount;
         _goldNeededForWin = _gameConfig.GoldNeededForWin;
         _goldDropChance = _gameConfig.GoldDropChance;
         _goldDropChance = _gameConfig.GoldDropChance;
         _currentGold = 0;
+        _playerScore = 0;
+        _gameStartTime = 0;
     }
     private void Start() {
         Initialize();
@@ -25,6 +29,7 @@ public class GameModel : MonoBehaviour, IGameModel {
     public void Initialize() {
         _gameView.UpdateGoldBarCount(_currentGold, _goldNeededForWin);
         _gameView.UpdateShovelCount(_shovelCount);
+        _gameView.UpdateScoreCount(_playerScore);
         PlayerWin();
     }
     public bool Dig(Block block) {
@@ -32,6 +37,7 @@ public class GameModel : MonoBehaviour, IGameModel {
             if (block.Dig()) {
                 ChangeShovelCount();
                 SpawnGoldBar(block);
+                GameStartFlag();
                 return true;
             }
             else
@@ -48,16 +54,18 @@ public class GameModel : MonoBehaviour, IGameModel {
             Debug.Log("Gold has appeared");
             block.SetGoldFlag(true);
             CreateGoldBar(block);
+            AddPlayerScore(50);
         }
     }
     public void SpawnGoldOnBlocksAfterLoad() {
         foreach (var block in _blocks) {
-            if (block.GetIsGold())
+            if (block.GetIsGold()) 
                 CreateGoldBar(block);
         }
     }
     public void ChangeGoldCount() {
         _currentGold++;
+        AddPlayerScore(25);
         _gameView.UpdateGoldBarCount(_currentGold, _goldNeededForWin);
         PlayerWin();
     }
@@ -67,15 +75,16 @@ public class GameModel : MonoBehaviour, IGameModel {
             _blocks[i].SetIsGold(blockDataList[i].hasGold);
             _blocks[i].SetDepth(blockDataList[i].depth);
             _blocks[i].Initialize();
-
         }
     }
     public int GetShovelCount() => _shovelCount;
     public int GetGoldCount() => _currentGold;
+    public int GetPlayerScore() => _playerScore;
     public bool GetPlayerIsWin() => _playerIsWin;
     public Block[] GetBlocks() => _blocks;
     public void SetShovelCount(int count) => _shovelCount = count;
     public void SetGoldCount(int count) => _currentGold = count;
+    public void SetPlayerScore(int count) => _playerScore = count;
     public void SetPlayerIsWin(bool isWin) => _playerIsWin = isWin;
     private void ChangeShovelCount() {
         _shovelCount--;
@@ -90,9 +99,31 @@ public class GameModel : MonoBehaviour, IGameModel {
     }
     private void PlayerWin() {
         if (_currentGold >= _goldNeededForWin) {
+            RemoveAllGold();
+            if(!_playerIsWin)
+                AddPlayerScore(100 - (int)(Time.time - _gameStartTime));
+            Debug.Log(100 - (int)(Time.time - _gameStartTime));
+            _gameStartTime = 0;
             _gameView.PlayerWin();
             _playerIsWin = true;
+            
             Debug.Log("Player wins");
+        }
+    }
+    private void AddPlayerScore(int score) {
+        if (score > 0) {
+            _playerScore += score;
+            _gameView.UpdateScoreCount(_playerScore);
+        }
+    }
+    private void GameStartFlag() {
+        if (_gameStartTime != 0)
+            _gameStartTime = Time.time;
+    }
+    void RemoveAllGold() {
+        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("Gold");
+        foreach (GameObject obj in objectsWithTag) {
+            Destroy(obj);
         }
     }
 }
